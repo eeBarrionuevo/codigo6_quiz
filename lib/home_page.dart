@@ -1,3 +1,4 @@
+import 'package:codigo6_quiz/question.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,21 +9,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int questionNumber = 0;
 
-  List<String> questions = [
-    "¿He dormido 8 horas?", //false
-    "¿La tierra es plana?", //false
-    "¿El hombre fue a la luna?", //true
-    "¿Ella me quiere?", //false
-    "¿He almozado hoy día?" //true
+  List<Question> questions = [
+    Question(questionText: "¿He dormido 8 horas?", questionAnswer: false),
+    Question(questionText: "¿La tierra es plana?", questionAnswer: false),
+    Question(questionText: "¿El hombre fue a la luna?", questionAnswer: true),
+    Question(questionText: "¿Ella me quiere?", questionAnswer: false),
+    Question(questionText: "¿He almozado hoy día?", questionAnswer: true),
   ];
 
-  List<bool> answers = [
-    false,
-    false,
-    true,
-    false,
-    true,
-  ];
+  // List<String> questions = [
+  //   "¿He dormido 8 horas?", //false
+  //   "¿La tierra es plana?", //false
+  //   "¿El hombre fue a la luna?", //true
+  //   "¿Ella me quiere?", //false
+  //   "¿He almozado hoy día?" //true
+  // ];
+
+  // List<bool> answers = [
+  //   false,
+  //   false,
+  //   true,
+  //   false,
+  //   true,
+  // ];
 
   List<Icon> scoreKeeper = [];
 
@@ -40,7 +49,7 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Text(
-                  questions[questionNumber],
+                  questions[questionNumber].questionText,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22.0,
@@ -64,9 +73,13 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  bool correctAnswer = answers[questionNumber];
+                  //Obtenemos la respuesta correcta de la pregunta
+                  bool correctAnswer = questions[questionNumber].questionAnswer;
 
+                  //Comparamos la respuesta correcta con el valor verdaddero
                   if (correctAnswer == true) {
+                    //Si la respuesta correcta es verdadera
+                    //Se agrega un icono a la lista de respuestas
                     scoreKeeper.add(
                       Icon(
                         Icons.check,
@@ -74,6 +87,8 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   } else {
+                    //Si la respuesta correcta es falsa
+                    //Se agrega un icono de error a la lista de respuestas
                     scoreKeeper.add(
                       Icon(
                         Icons.close,
@@ -81,7 +96,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     );
                   }
+                  //Se redibuja el widget - Se ejecuta el método build
                   setState(() {});
+                  //El valor del contador aumenta en uno
                   questionNumber++;
                 },
                 color: Color(0xff3bceac),
@@ -95,7 +112,35 @@ class _HomePageState extends State<HomePage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  //Obtenemos la respuesta correcta de la pregunta
+                  bool correctAnswer = questions[questionNumber].questionAnswer;
+
+                  //Comparamos la respuesta correcta con el valor verdaddero
+                  if (correctAnswer == false) {
+                    //Si la respuesta correcta es verdadera
+                    //Se agrega un icono a la lista de respuestas
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else {
+                    //Si la respuesta correcta es falsa
+                    //Se agrega un icono de error a la lista de respuestas
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
+                  //Se redibuja el widget - Se ejecuta el método build
+                  setState(() {});
+                  //El valor del contador aumenta en uno
+                  questionNumber++;
+                },
                 color: Color(0xffff6b6b),
                 child: Text(
                   "Falso",
