@@ -6,21 +6,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int questionNumber = 0;
+
   List<String> questions = [
-    "¿He dormido 8 horas?",
-    "¿La tierra es plana?",
-    "¿El hombre fue a la luna?",
-    "¿Ella me quiere?",
-    "¿He almozado hoy día?"
+    "¿He dormido 8 horas?", //false
+    "¿La tierra es plana?", //false
+    "¿El hombre fue a la luna?", //true
+    "¿Ella me quiere?", //false
+    "¿He almozado hoy día?" //true
   ];
 
-  List<Widget> scoreKeeper = [
-    Icon(
-      Icons.check,
-      color: Color(0xff3bceac),
-      size: 30.0,
-    ),
+  List<bool> answers = [
+    false,
+    false,
+    true,
+    false,
+    true,
   ];
+
+  List<Icon> scoreKeeper = [];
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Text(
-                  questions[2],
+                  questions[questionNumber],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22.0,
@@ -60,14 +64,25 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-                  );
+                  bool correctAnswer = answers[questionNumber];
 
+                  if (correctAnswer == true) {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      ),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
                   setState(() {});
+                  questionNumber++;
                 },
                 color: Color(0xff3bceac),
                 child: Text(
