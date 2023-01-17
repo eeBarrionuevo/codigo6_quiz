@@ -1,4 +1,4 @@
-import 'package:codigo6_quiz/question.dart';
+import 'package:codigo6_quiz/quiz_brain.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -7,15 +7,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int questionNumber = 0;
-
-  List<Question> questions = [
-    Question(questionText: "¿He dormido 8 horas?", questionAnswer: false),
-    Question(questionText: "¿La tierra es plana?", questionAnswer: false),
-    Question(questionText: "¿El hombre fue a la luna?", questionAnswer: true),
-    Question(questionText: "¿Ella me quiere?", questionAnswer: false),
-    Question(questionText: "¿He almozado hoy día?", questionAnswer: true),
-  ];
+  QuizBrain mandarina = QuizBrain();
 
   // List<String> questions = [
   //   "¿He dormido 8 horas?", //false
@@ -49,7 +41,8 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.all(6.0),
                 child: Text(
-                  questions[questionNumber].questionText,
+                  //mandarina.questions[questionNumber].questionText,
+                  mandarina.getQuestionText(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22.0,
@@ -74,7 +67,10 @@ class _HomePageState extends State<HomePage> {
               child: MaterialButton(
                 onPressed: () {
                   //Obtenemos la respuesta correcta de la pregunta
-                  bool correctAnswer = questions[questionNumber].questionAnswer;
+                  // bool correctAnswer =
+                  //     mandarina.questions[questionNumber].questionAnswer;
+
+                  bool correctAnswer = mandarina.getQuestionAnswer();
 
                   //Comparamos la respuesta correcta con el valor verdaddero
                   if (correctAnswer == true) {
@@ -99,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                   //Se redibuja el widget - Se ejecuta el método build
                   setState(() {});
                   //El valor del contador aumenta en uno
-                  questionNumber++;
+                  mandarina.nextQuestion();
                 },
                 color: Color(0xff3bceac),
                 child: Text(
@@ -114,7 +110,8 @@ class _HomePageState extends State<HomePage> {
               child: MaterialButton(
                 onPressed: () {
                   //Obtenemos la respuesta correcta de la pregunta
-                  bool correctAnswer = questions[questionNumber].questionAnswer;
+
+                  bool correctAnswer = mandarina.getQuestionAnswer();
 
                   //Comparamos la respuesta correcta con el valor verdaddero
                   if (correctAnswer == false) {
@@ -139,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                   //Se redibuja el widget - Se ejecuta el método build
                   setState(() {});
                   //El valor del contador aumenta en uno
-                  questionNumber++;
+                  mandarina.nextQuestion();
                 },
                 color: Color(0xffff6b6b),
                 child: Text(
