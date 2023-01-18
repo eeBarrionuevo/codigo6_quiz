@@ -9,30 +9,34 @@ class QuizBrain {
     Question(questionText: "¿He almozado hoy día?", questionAnswer: true),
   ];
 
-  int questionNumber = 0;
+  int _questionNumber = 0;
 
   //Función que devuelva el texto de una pregunta de acuerdo a su posición
   // obtenerTextoPregunta() {
 
   // }
   String getQuestionText() {
-    return _questions[questionNumber].questionText;
+    return _questions[_questionNumber].questionText;
   }
 
   //Función que devuelva la respuesta de una pregunta de acuerdo a su posición
 
   bool getQuestionAnswer() {
-    return _questions[questionNumber].questionAnswer;
+    return _questions[_questionNumber].questionAnswer;
   }
 
   void nextQuestion() {
-    questionNumber++;
+    _questionNumber++;
   }
 
   bool isFinished() {
-    if (questionNumber >= _questions.length - 1) {
+    if (_questionNumber >= _questions.length - 1) {
       return true;
     }
     return false;
+  }
+
+  void restart() {
+    _questionNumber = 0;
   }
 }

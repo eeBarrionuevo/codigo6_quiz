@@ -1,5 +1,6 @@
 import 'package:codigo6_quiz/quiz_brain.dart';
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,8 +12,29 @@ class _HomePageState extends State<HomePage> {
   List<Icon> scoreKeeper = [];
 
   void checkQuestion(bool type) {
+    print("sdsada");
     if (mandarina.isFinished() == true) {
-      print("El juego ha terminado");
+      Alert(
+        context: context,
+        type: AlertType.success,
+        title: "El quiz finalizó!",
+        desc: "Quires iniciar nuevamente?",
+        buttons: [
+          DialogButton(
+            child: Text(
+              "Reiniciar",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            onPressed: () {
+              mandarina.restart();
+              scoreKeeper.clear();
+              Navigator.pop(context);
+              setState(() {});
+            },
+            width: 120,
+          )
+        ],
+      ).show();
     } else {
       bool correctAnswer = mandarina.getQuestionAnswer();
       if (correctAnswer == type) {
