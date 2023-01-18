@@ -11,36 +11,32 @@ class _HomePageState extends State<HomePage> {
   List<Icon> scoreKeeper = [];
 
   void checkQuestion(bool type) {
-    //Obtenemos la respuesta correcta de la pregunta
-    // bool correctAnswer =
-    //     mandarina.questions[questionNumber].questionAnswer;
-
-    bool correctAnswer = mandarina.getQuestionAnswer();
-
-    //Comparamos la respuesta correcta con el valor verdaddero
-    if (correctAnswer == type) {
-      //Si la respuesta correcta es verdadera
-      //Se agrega un icono a la lista de respuestas
-      scoreKeeper.add(
-        Icon(
-          Icons.check,
-          color: Colors.green,
-        ),
-      );
+    if (mandarina.isFinished() == true) {
+      print("El juego ha terminado");
     } else {
-      //Si la respuesta correcta es falsa
-      //Se agrega un icono de error a la lista de respuestas
-      scoreKeeper.add(
-        Icon(
-          Icons.close,
-          color: Colors.red,
-        ),
-      );
+      bool correctAnswer = mandarina.getQuestionAnswer();
+      if (correctAnswer == type) {
+        //Si la respuesta correcta es verdadera
+        //Se agrega un icono a la lista de respuestas
+        scoreKeeper.add(
+          Icon(
+            Icons.check,
+            color: Colors.green,
+          ),
+        );
+      } else {
+        //Si la respuesta correcta es falsa
+        //Se agrega un icono de error a la lista de respuestas
+        scoreKeeper.add(
+          Icon(
+            Icons.close,
+            color: Colors.red,
+          ),
+        );
+      }
+      setState(() {});
+      mandarina.nextQuestion();
     }
-    //Se redibuja el widget - Se ejecuta el método build
-    setState(() {});
-    //El valor del contador aumenta en uno
-    mandarina.nextQuestion();
   }
 
   @override
@@ -68,15 +64,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          // SizedBox(
-          //   width: double.infinity,
-          //   child: ElevatedButton(
-          //     onPressed: () {},
-          //     child: Text(
-          //       "Hola",
-          //     ),
-          //   ),
-          // ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
